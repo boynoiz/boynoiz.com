@@ -49,10 +49,19 @@ if (api_token) {
  * allows your team to easily build robust real-time web applications.
  */
 
+import * as io from 'socket.io-client';
+window.io = io;
 import Echo from "laravel-echo";
 
 window.Echo = new Echo({
     broadcaster: 'socket.io',
     host: window.location.hostname + ':2053',
-    encrypted: true
+    encrypted: true,
+    auth:
+        {
+            headers:
+                {
+                    'Authorization': 'Bearer 6d1a588be828bba72b74f8220b40d531'
+                }
+        }
 });
