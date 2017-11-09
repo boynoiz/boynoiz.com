@@ -17,7 +17,7 @@ class MediaController extends Controller
 
         $headers = [
             'Content-Type' => $media->mime_type,
-            'Content-Disposition' => "filename='{$media->original_filename}'"
+            'Content-Disposition' => "inline; filename='{$media->original_filename}'"
         ];
 
         return response()->file($media->getPath(), $headers);
