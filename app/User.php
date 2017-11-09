@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Carbon\Carbon;
 use App\Role;
@@ -70,7 +71,7 @@ class User extends Authenticatable
     public function scopeLastWeek($query)
     {
         return $query->whereBetween('registered_at', [Carbon::now()->subWeek(), Carbon::now()])
-                     ->latest();
+            ->latest();
     }
 
     /**
@@ -94,78 +95,88 @@ class User extends Authenticatable
     {
         return $query->whereHas('roles', function ($query) {
             $query->where('roles.name', Role::ROLE_ADMIN)
-                  ->orWhere('roles.name', Role::ROLE_EDITOR);
+                ->orWhere('roles.name', Role::ROLE_EDITOR);
         });
     }
 
     /**
-    * Check if the user can be an author
-    *
-    * @return boolean
-    */
+     * Check if the user can be an author
+     *
+     * @return boolean
+     */
     public function canBeAuthor(): bool
     {
         return $this->isAdmin() || $this->isEditor();
     }
 
     /**
-    * Check if the user has a role
-    *
-    * @param string $role
-    * @return boolean
-    */
+     * Check if the user has a role
+     *
+     * @param string $role
+     * @return boolean
+     */
     public function hasRole($role): bool
     {
         return $this->roles->where('name', $role)->isNotEmpty();
     }
 
     /**
-    * Check if the user has role admin
-    *
-    * @return boolean
-    */
+     * Check if the user has role admin
+     *
+     * @return boolean
+     */
     public function isAdmin(): bool
     {
         return $this->hasRole(Role::ROLE_ADMIN);
     }
 
     /**
-    * Check if the user has role editor
-    *
-    * @return boolean
-    */
+     * Check if the user has role editor
+     *
+     * @return boolean
+     */
     public function isEditor(): bool
     {
         return $this->hasRole(Role::ROLE_EDITOR);
     }
 
     /**
-    * Return the user's posts
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * Return the user's posts
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function posts()
     {
         return $this->hasMany(Post::class, 'author_id');
     }
 
     /**
-    * Return the user's comments
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * Return the user's comments
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function comments()
     {
         return $this->hasMany(Comment::class, 'author_id');
     }
 
     /**
-    * Return the user's roles
-    *
-    * @return \Illuminate\Database\Eloquent\Relations\HasMany
-    */
+     * Return the user's roles
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function roles()
     {
         return $this->belongsToMany(Role::class)->withTimestamps();
+    }
+
+    /**
+     * The channels the user receives notification broadcasts on.
+     *
+     * @return string
+     */
+    public function receivesBroadcastNotificationsOn()
+    {
+        return 'users.'.$this->id;
     }
 }
