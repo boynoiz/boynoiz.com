@@ -6,20 +6,30 @@
     "type": "project",
     "require": {
         "php": ">=7.0.0",
-        "barryvdh/laravel-debugbar": "^3.0",
-        "doctrine/dbal": "^2.5",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
-        "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.5",
         "renatomarinho/laravel-page-speed": "^1.8"
     },
     "require-dev": {
+        "laravel/tinker": "~1.0",
+        "ajthinking/tinx": "^0.8.2",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
         "phpunit/phpunit": "~6.0",
+        "barryvdh/laravel-debugbar": "^3.1",
+        "barryvdh/laravel-ide-helper": "^2.4",
+        "benconstable/phpspec-laravel": "^3.0",
+        "doctrine/dbal": "^2.6",
+        "laravel/dusk": "^2.0",
+        "phpmd/phpmd": "@stable",
+        "phpspec/phpspec": "^3.4",
+        "phpstan/phpstan": "^0.6.4",
+        "sebastian/phpcpd": "^3.0",
+        "itsgoingd/clockwork": "^2.0",
+        "squizlabs/php_codesniffer": "^3.0",
         "symfony/css-selector": "3.1.*",
         "symfony/dom-crawler": "3.1.*",
         "friendsofphp/php-cs-fixer": "^2.5",
@@ -45,6 +55,12 @@
     "extra": {
         "laravel": {
             "dont-discover": [
+                "barryvdh/laravel-debugbar",
+                "barryvdh/laravel-ide-helper",
+                "laravel/dusk",
+                "laravel/tinker",
+                "itsgoingd/clockwork",
+                "ajthinking/tinx"
             ]
         }
     },
@@ -58,6 +74,34 @@
         "post-autoload-dump": [
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
+        ],
+        "style" : [
+            "phpcs --report=full --standard=PSR2 --extensions=php app"
+        ],
+        "php-fixer" : [
+            "php-cs-fixer fix --verbose --config=php_cs.dist app api"
+        ],
+        "clean-dev" : [
+            "composer clear-cache",
+            "composer dump-autoload -o",
+            "php artisan clear-compiled",
+            "php artisan cache:clear",
+            "php artisan config:clear",
+            "php artisan route:clear",
+            "php artisan view:clear",
+            "php artisan ide-helper:generate",
+            "php artisan ide-helper:meta",
+            "php artisan optimize"
+        ],
+        "clean" : [
+            "composer clear-cache",
+            "composer dump-autoload -o",
+            "php artisan clear-compiled",
+            "php artisan cache:clear",
+            "php artisan config:clear",
+            "php artisan route:clear",
+            "php artisan view:clear",
+            "php artisan optimize"
         ]
     },
     "config": {
