@@ -11,3 +11,6 @@
 .php_cs.cache
 /storage/debugbar
 /storage/tmp
+/storage/rootCA.pem
+/.phpstorm.meta.php
+/_ide_helper.php
