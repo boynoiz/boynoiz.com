@@ -56,12 +56,11 @@ import Echo from "laravel-echo";
 window.Echo = new Echo({
     broadcaster: 'socket.io',
     host: window.location.hostname + ':2053',
-    encrypted: true,
     auth:
         {
             headers:
                 {
-                    'Authorization': 'Bearer 6d1a588be828bba72b74f8220b40d531'
+                    'Authorization': 'Bearer ' + api_token
                 }
         }
 });
