@@ -49,8 +49,8 @@ if (api_token) {
  * allows your team to easily build robust real-time web applications.
  */
 
-import * as io from 'socket.io-client';
 window.io = io;
+import * as io from 'socket.io-client';
 import Echo from "laravel-echo";
 
 window.Echo = new Echo({
