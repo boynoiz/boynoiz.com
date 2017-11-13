@@ -4,6 +4,7 @@ use Illuminate\Database\Seeder;
 use App\User;
 use App\Token;
 use App\Role;
+use App\Settings;
 
 class DatabaseSeeder extends Seeder
 {
@@ -33,5 +34,17 @@ class DatabaseSeeder extends Seeder
         User::where('api_token', null)->get()->each->update([
             'api_token' => Token::generate()
         ]);
+
+        $settings = [
+            'maintenance' => '0',
+            'site_name' => 'bOynOiz.com',
+            'description' => 'Web developer, Gamer, Music, Anime and Life',
+            'author' => 'Pathompong Pechkongtong',
+            'keywords' => 'blog, internet, it, web developer, gamer',
+        ];
+
+        foreach ($settings as $key => $value) {
+            Settings::firstOrCreate(['key' => $key, 'value' => $value]);
+        }
     }
 }
