@@ -11,14 +11,7 @@
 |
 */
 
-Auth::routes();
-
-Route::prefix('auth')->group(function () {
-    Route::get('{provider}', 'Auth\AuthController@redirectToProvider')->name('auth.provider');
-    Route::get('{provider}/callback', 'Auth\AuthController@handleProviderCallback');
-});
-
-Route::prefix('admin')->middleware(['auth', 'role:admin'])->namespace('Admin')->as('admin.')->group(function () {
+Route::domain('admin.' . env('APP_DOMAIN'))->middleware(['auth', 'role:admin'])->namespace('Admin')->as('admin.')->group(function () {
     Route::get('dashboard', 'ShowDashboard')->name('dashboard');
     Route::resource('posts', 'PostsController');
     Route::delete('/posts/{post}/thumbnail', 'PostsThumbnailController@destroy')->name('posts_thumbnail.destroy');
@@ -26,16 +19,29 @@ Route::prefix('admin')->middleware(['auth', 'role:admin'])->namespace('Admin')->
     Route::resource('comments', 'CommentsController', ['only' => ['index', 'edit', 'update', 'destroy']]);
 });
 
-Route::middleware('auth')->group(function () {
-    Route::resource('users', 'UsersController', ['only' => ['edit', 'update']]);
-    Route::post('/tokens/{user}', 'TokensController@store')->name('tokens.store');
-    Route::resource('newsletter-subscriptions', 'NewsletterSubscriptionsController', ['only' => 'store']);
+Route::domain(env('APP_DOMAIN'))->group(function () {
+    Route::get('/', 'HomeController@index')->name('home');
+
+    Auth::routes();
+
+    Route::prefix('auth')->group(function () {
+        Route::get('{provider}', 'Auth\AuthController@redirectToProvider')->name('auth.provider');
+        Route::get('{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+    });
 });
 
-Route::get('/', 'PostsController@index')->name('home');
-Route::resource('media', 'MediaController', ['only' => 'show']);
-Route::get('/posts/feed', 'PostsFeedController@index')->name('posts.feed');
-Route::resource('posts', 'PostsController', ['only' => 'show']);
-Route::resource('users', 'UsersController', ['only' => 'show']);
+Route::domain('blog.' . env('APP_DOMAIN'))->group(function () {
+    Route::get('/', 'PostsController@index')->name('blog');
+    Route::resource('media', 'MediaController', ['only' => 'show']);
+    Route::get('/posts/feed', 'PostsFeedController@index')->name('posts.feed');
+    Route::resource('posts', 'PostsController', ['only' => 'show']);
+    Route::resource('users', 'UsersController', ['only' => 'show']);
+
+    Route::middleware('auth')->group(function () {
+        Route::resource('users', 'UsersController', ['only' => ['edit', 'update']]);
+        Route::post('/tokens/{user}', 'TokensController@store')->name('tokens.store');
+        Route::resource('newsletter-subscriptions', 'NewsletterSubscriptionsController', ['only' => 'store']);
+    });
+});
 
 Route::get('newsletter-subscriptions/unsubscribe', 'NewsletterSubscriptionsController@unsubscribe')->name('newsletter-subscriptions.unsubscribe');
