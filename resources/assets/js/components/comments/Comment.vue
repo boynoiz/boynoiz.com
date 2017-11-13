@@ -21,6 +21,7 @@
 
 <script>
 export default {
+    name: 'comment',
     props: [
         'comment',
         'data_confirm'

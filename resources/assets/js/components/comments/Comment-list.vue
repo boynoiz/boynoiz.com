@@ -15,56 +15,57 @@
 </template>
 
 <script>
-export default {
-  props: [
-      'post_id',
-      'loading_comments',
-      'data_confirm'
-  ],
+    export default {
+        name: 'comment-list',
+        props: [
+            'post_id',
+            'loading_comments',
+            'data_confirm'
+        ],
 
-  data() {
-      return {
-          comments: [],
-          isLoading: false,
-          endpoint: '/api/v1/posts/'+ this.post_id + '/comments/'
-      }
-  },
+        data() {
+            return {
+                comments: [],
+                isLoading: false,
+                endpoint: '/api/v1/posts/' + this.post_id + '/comments/'
+            }
+        },
 
-  mounted() {
-    this.retrieveComments()
+        mounted() {
+            this.retrieveComments()
 
-    if (window.Echo) {
-        Echo.channel('post.' + this.post_id)
-            .listen('.comment.posted', (e) => {
-                this.comments.unshift(e.comment)
-            });
+            if (window.Echo) {
+                Echo.channel('post.' + this.post_id)
+                    .listen('.comment.posted', (e) => {
+                        this.comments.unshift(e.comment)
+                    });
+            }
+
+            Event.$on('added', (comment) => {
+                this.addComment(comment)
+            })
+        },
+
+        methods: {
+            retrieveComments() {
+                this.isLoading = true
+
+                axios.get(this.endpoint).then(response => {
+                    this.comments.push(...response.data.data)
+                    this.isLoading = false
+                    this.endpoint = response.data.links.next
+                });
+            },
+
+            removeComment(comment) {
+                this.comments = this.comments.filter(item => {
+                    return item.id !== comment.id
+                })
+            },
+
+            addComment(comment) {
+                this.comments.unshift(comment)
+            }
+        }
     }
-
-    Event.$on('added', (comment) => {
-        this.addComment(comment)
-    })
-  },
-
-  methods: {
-    retrieveComments() {
-        this.isLoading = true
-
-        axios.get(this.endpoint).then(response => {
-            this.comments.push(...response.data.data)
-            this.isLoading = false
-            this.endpoint = response.data.links.next
-        });
-    },
-
-    removeComment(comment) {
-        this.comments = this.comments.filter(item => {
-            return item.id !== comment.id
-        })
-    },
-
-    addComment(comment) {
-        this.comments.unshift(comment)
-    }
-  }
-}
 </script>
