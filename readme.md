@@ -2,7 +2,7 @@
 
 Source from [guillaumebriday/laravel-blog](https://github.com/guillaumebriday/laravel-blog) Thank you so much!
 
-Customize for my personal blog, playground and experiment
+Customize for my personal blog, playground and experiment.
 
 ## License
 
