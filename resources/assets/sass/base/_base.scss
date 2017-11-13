@@ -1,20 +1,25 @@
 html {
-    position: relative;
-    min-height: 100%;
-  }
-
-.huge {
-    font-size: 40px;
+  position: relative;
+  min-height: 100%;
 }
 
-body > #app > .container, {
-    margin-top: 100px;
-    margin-bottom: 100px;
-    padding-top: 15px;
-    padding-bottom: 15px;
+.huge {
+  font-size: 40px;
+}
+
+body > #app > .container {
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding-top: 15px;
+  padding-bottom: 15px;
 }
 
 body > #app > .container-fluid {
-    padding-bottom: 15px;
-    padding-top: 15px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+}
+
+.admin-body {
+  background-color: initial;
+  padding-top: 70px;
 }

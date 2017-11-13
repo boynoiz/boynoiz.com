@@ -1,20 +1,12 @@
-// Bootstrap
-@import "node_modules/bootstrap/scss/bootstrap";
-
-// Base
+@import "pre-customizations";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-vue/dist/bootstrap-vue.css";
 @import "base/base";
-
-// Font-awesome
-@import "node_modules/font-awesome/scss/font-awesome";
-
-// Modules
+@import "~font-awesome/scss/font-awesome";
 @import "modules/form";
 @import "modules/turbolinks";
 @import "modules/panels";
 @import "modules/buttons";
-
-// Shared
 @import "shared/sidebar";
-
-// Layouts
 @import "layouts/posts";
+@import "~trumbowyg/dist/ui/trumbowyg.min.css";
