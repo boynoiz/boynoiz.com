@@ -17,7 +17,7 @@
         "ajthinking/tinx": "^0.8.2",
         "filp/whoops": "~2.0",
         "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
+        "mockery/mockery": "~1.0",
         "phpunit/phpunit": "~6.0",
         "barryvdh/laravel-debugbar": "^3.1",
         "barryvdh/laravel-ide-helper": "^2.4",
