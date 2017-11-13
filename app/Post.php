@@ -118,10 +118,11 @@ class Post extends Model
         return $this->media->where('id', $this->thumbnail_id)->first();
     }
 
+
     /**
      * Store and set the post's thumbnail
      *
-     * @return void
+     * @param UploadedFile $thumbnail
      */
     public function storeAndSetThumbnail(UploadedFile $thumbnail)
     {
