@@ -1,16 +1,19 @@
 {
-    "name": "laravel 5.5 blog",
+    "name": "boynoiz-blog",
     "description": "Laravel 5.5 blog.",
     "keywords": ["framework", "laravel", "blog", "exemple"],
     "license": "MIT",
     "type": "project",
     "require": {
         "php": ">=7.0.0",
+        "barryvdh/laravel-cors": "^0.10.0",
         "fideloper/proxy": "~3.3",
         "laravel/framework": "5.5.*",
         "laravel/socialite": "^3.0",
         "laravelcollective/html": "^5.5",
-        "renatomarinho/laravel-page-speed": "^1.8"
+        "renatomarinho/laravel-page-speed": "^1.8",
+        "spatie/laravel-db-snapshots": "^1.1",
+        "tightenco/ziggy": "^0.5.0"
     },
     "require-dev": {
         "laravel/tinker": "~1.0",
