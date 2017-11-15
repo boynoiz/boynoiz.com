@@ -7,7 +7,7 @@
                  @deleted="removeComment(comment)">
         </comment>
 
-        <button v-if="endpoint" @click="retrieveComments" class="btn btn-outline-primary btn-block">
+        <button v-if="endpoint" @click="retrieveComments" :disabled="isLoading" class="btn btn-outline-primary btn-block">
             <i v-if="isLoading" class="fa fa-spinner fa-spin fa-fw"></i>
             {{ loading_comments }}
         </button>
@@ -15,57 +15,58 @@
 </template>
 
 <script>
-    export default {
-        name: 'comment-list',
-        props: [
-            'post_id',
-            'loading_comments',
-            'data_confirm'
-        ],
+  import Comment from '../../components/comments/Comment.vue'
 
-        data() {
-            return {
-                comments: [],
-                isLoading: false,
-                endpoint: '/api/v1/posts/' + this.post_id + '/comments/'
-            }
-        },
+  export default {
+    name: "comment-list",
+    components: {
+      Comment,
+    },
+    props: ["post_id", "loading_comments", "data_confirm"],
 
-        mounted() {
-            this.retrieveComments()
+    data() {
+      return {
+        comments: [],
+        isLoading: false,
+        endpoint: null
+      };
+    },
 
-            if (window.Echo) {
-                Echo.channel('post.' + this.post_id)
-                    .listen('.comment.posted', (e) => {
-                        this.comments.unshift(e.comment)
-                    });
-            }
+    mounted() {
+      this.retrieveComments();
 
-            Event.$on('added', (comment) => {
-                this.addComment(comment)
-            })
-        },
+      if (window.Echo) {
+        Echo.channel('post.' + this.post_id)
+          .listen('.comment.posted', (e) => {
+            this.comments.unshift(e.comment)
+          })
+      }
 
-        methods: {
-            retrieveComments() {
-                this.isLoading = true
+      Event.$on("added", comment => {
+        this.addComment(comment)
+      });
+    },
 
-                axios.get(this.endpoint).then(response => {
-                    this.comments.push(...response.data.data)
-                    this.isLoading = false
-                    this.endpoint = response.data.links.next
-                });
-            },
+    methods: {
+      retrieveComments() {
+        this.isLoading = true;
 
-            removeComment(comment) {
-                this.comments = this.comments.filter(item => {
-                    return item.id !== comment.id
-                })
-            },
+        axios.get(route('posts.comments.index', {post: this.post_id})).then(response => {
+          this.comments.push(...response.data.data);
+          this.isLoading = false;
+          this.endpoint = response.data.links.next
+        });
+      },
 
-            addComment(comment) {
-                this.comments.unshift(comment)
-            }
-        }
+      removeComment(comment) {
+        this.comments = this.comments.filter(item => {
+          return item.id !== comment.id;
+        });
+      },
+
+      addComment(comment) {
+        this.comments.unshift(comment)
+      }
     }
+  }
 </script>

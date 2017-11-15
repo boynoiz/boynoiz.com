@@ -32,15 +32,11 @@
             </div>
         </div>
 
-        <nav class="navbar navbar-dark bg-dark fixed-bottom">
-            <div class="container">
-                @yield('footer')
-                @include('shared/newsletter-form')
-            </div>
-        </nav>
+        {{--@include('shared/footer')--}}
     </div>
 
     <!-- Scripts -->
+    @routes
     <script src="{{ mix('assets/js/manifest.js') }}"></script>
     <script src="{{ mix('assets/js/vendor.js') }}"></script>
     <script src="{{ mix('assets/js/app.js') }}"></script>

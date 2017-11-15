@@ -11,6 +11,7 @@ if (!window._babelPolyfill) {
 try {
   window.$ = window.jQuery = require('jquery')
   window.Popper = require('popper.js').default
+  require('bootstrap-loader');
 } catch (errors) {
   console.log(errors)
 }
@@ -22,7 +23,6 @@ try {
  */
 
 window.axios = require('axios')
-
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
 /**
@@ -46,7 +46,8 @@ if (token) {
 let api_token = document.head.querySelector('meta[name="api-token"]')
 
 if (api_token) {
-  axios.defaults.headers.common['Authorization'] = 'Bearer ' + api_token.content
+  window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + api_token.content;
+  window.axios.defaults.baseURL = 'https://api.boynoiz.dev';
 }
 
 /**
@@ -55,10 +56,9 @@ if (api_token) {
  * allows your team to easily build robust real-time web applications.
  */
 
+import io from 'socket.io-client'
 window.io = io
-import * as io from 'socket.io-client'
 import Echo from 'laravel-echo'
-
 window.Echo = new Echo({
   broadcaster: 'socket.io',
   host: window.location.hostname + ':2053',
