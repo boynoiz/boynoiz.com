@@ -63,6 +63,17 @@ class Post extends Model
     }
 
     /**
+     * Scope a query to search posts
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeSearch($query, $search)
+    {
+        return $query->where('title', 'LIKE', "%{$search}%");
+    }
+
+    /**
      * Scope a query to order posts by latest posted
      *
      * @param \Illuminate\Database\Eloquent\Builder $query
@@ -117,7 +128,6 @@ class Post extends Model
     {
         return $this->media->where('id', $this->thumbnail_id)->first();
     }
-
 
     /**
      * Store and set the post's thumbnail
