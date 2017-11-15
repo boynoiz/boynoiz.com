@@ -21,22 +21,19 @@
 
 <script>
 export default {
-    name: 'comment',
-    props: [
-        'comment',
-        'data_confirm'
-    ],
+    name: "comment",
+    props: ["comment", "data_confirm"],
 
     methods: {
         deleteComment() {
             if (confirm(this.data_confirm)) {
-                axios.delete('/api/v1/comments/' + this.comment.id)
+                axios.delete(route('comments.destroy', {comment: this.comment.id}))
                     .then(response => {
                         this.$emit('deleted', this)
                     })
                     .catch(error => {
                         console.log(error)
-                    })
+                    });
             }
         }
     }

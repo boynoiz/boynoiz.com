@@ -8,7 +8,9 @@
     "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
     "prod": "npm run production",
     "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-    "echo-server": "pm2 start laravel-echo-server -- start"
+    "echo-start": "pm2 start laravel-echo-server -- start",
+    "echo-restart": "pm2 restart laravel-echo-server",
+    "echo-stop": "pm2 stop laravel-echo-server"
   },
   "dependencies": {
     "axios": "^0.17.1",
@@ -33,6 +35,7 @@
     "css-mqpacker": "^6.0.1",
     "cssnano": "^4.0.0-rc.2",
     "cssnano-preset-advanced": "^4.0.0-rc.2",
+    "dotenv": "^4.0.0",
     "eslint": "^4.11.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-html": "^3.2.2",

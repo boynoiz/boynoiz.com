@@ -4,7 +4,9 @@ const {mix} = require('laravel-mix')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
 // Start processes
-mix.js('./resources/assets/js/app.js', 'public/assets/js')
+mix
+  .js('./resources/assets/js/app.js', 'public/assets/js')
+  .copy('node_modules/trumbowyg/dist/ui/icons.svg', 'public/assets/img/icons.svg');
 
 // Config
 
@@ -52,6 +54,7 @@ mix.webpackConfig({
     vue: ['Vue', 'window.Vue'],
     axios: ['axios', 'window.axios'],
     tether: ['tether', 'Tether'],
+    'socket.io-client': ['io', 'window.io'],
     'popper.js/dist/umd/popper.js': ['Popper', 'window.Popper', 'default'],
     'exports-loader?Alert!bootstrap/js/dist/alert': ['Alert', 'window.Alert'],
     'exports-loader?Button!bootstrap/js/dist/button': ['Button', 'window.Button'],
@@ -74,6 +77,7 @@ mix.webpackConfig({
     'vue',
     'bootstrap',
     'bootstrap-vue',
+    'socket.io-client'
   ])
   .options({
     processCssUrls: false,
