@@ -11,23 +11,10 @@
 |
 */
 
-Route::domain('admin.' . env('APP_DOMAIN'))->middleware(['auth', 'role:admin'])->namespace('Admin')->as('admin.')->group(function () {
-    Route::get('dashboard', 'ShowDashboard')->name('dashboard');
-    Route::resource('posts', 'PostsController');
-    Route::delete('/posts/{post}/thumbnail', 'PostsThumbnailController@destroy')->name('posts_thumbnail.destroy');
-    Route::resource('users', 'UsersController', ['only' => ['index', 'edit', 'update']]);
-    Route::resource('comments', 'CommentsController', ['only' => ['index', 'edit', 'update', 'destroy']]);
-});
+Auth::routes();
 
 Route::domain(env('APP_DOMAIN'))->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
-
-    Auth::routes();
-
-    Route::prefix('auth')->group(function () {
-        Route::get('{provider}', 'Auth\AuthController@redirectToProvider')->name('auth.provider');
-        Route::get('{provider}/callback', 'Auth\AuthController@handleProviderCallback');
-    });
 });
 
 Route::domain('blog.' . env('APP_DOMAIN'))->group(function () {
@@ -42,6 +29,20 @@ Route::domain('blog.' . env('APP_DOMAIN'))->group(function () {
         Route::post('/tokens/{user}', 'TokensController@store')->name('tokens.store');
         Route::resource('newsletter-subscriptions', 'NewsletterSubscriptionsController', ['only' => 'store']);
     });
+
+    Route::prefix('auth')->group(function () {
+        Route::get('{provider}', 'Auth\AuthController@redirectToProvider')->name('auth.provider');
+        Route::get('{provider}/callback', 'Auth\AuthController@handleProviderCallback');
+    });
+});
+
+
+Route::domain('admin.' . env('APP_DOMAIN'))->middleware(['auth', 'role:admin'])->namespace('Admin')->as('admin.')->group(function () {
+    Route::get('/', 'ShowDashboard')->name('dashboard');
+    Route::resource('posts', 'PostsController');
+    Route::delete('/posts/{post}/thumbnail', 'PostsThumbnailController@destroy')->name('posts_thumbnail.destroy');
+    Route::resource('users', 'UsersController', ['only' => ['index', 'edit', 'update']]);
+    Route::resource('comments', 'CommentsController', ['only' => ['index', 'edit', 'update', 'destroy']]);
 });
 
 Route::get('newsletter-subscriptions/unsubscribe', 'NewsletterSubscriptionsController@unsubscribe')->name('newsletter-subscriptions.unsubscribe');

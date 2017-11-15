@@ -1,7 +1,11 @@
 {
-    "/js/app.js": "/js/app.js",
-    "/css/app.css": "/css/app.css",
-    "/css/admin.css": "/css/admin.css",
-    "/js/admin.js": "/js/admin.js",
-    "/js/ui/icons.svg": "/js/ui/icons.svg"
+    "/assets/js/vendor.js": "/assets/js/vendor.js",
+    "/assets/js/vendor.js.map": "/assets/js/vendor.js.map",
+    "/assets/js/app.js": "/assets/js/app.js",
+    "/assets/css/app.css": "/assets/css/app.css",
+    "/assets/js/app.js.map": "/assets/js/app.js.map",
+    "/assets/css/app.css.map": "/assets/css/app.css.map",
+    "/assets/js/manifest.js": "/assets/js/manifest.js",
+    "/assets/js/manifest.js.map": "/assets/js/manifest.js.map",
+    "/assets/img/icons.svg": "/assets/img/icons.svg"
 }
