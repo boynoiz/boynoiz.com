@@ -10,32 +10,33 @@
 | is assigned the "api" middleware group. Enjoy building your API!
 |
 */
+Route::domain('api.' . env('APP_DOMAIN'))->group(function () {
+    Route::prefix('v1')->namespace('Api\V1')->group(function () {
+        Route::middleware('auth:api')->group(function () {
+            // Comments
+            Route::resource('comments', 'CommentsController', ['only' => 'destroy']);
+            Route::resource('posts.comments', 'PostCommentsController', ['only' => 'store']);
 
-Route::prefix('v1')->namespace('Api\V1')->group(function () {
-    Route::middleware('auth:api')->group(function () {
+            // Posts
+            Route::resource('posts', 'PostsController', ['only' => ['update', 'store', 'destroy']]);
+            Route::delete('/posts/{post}/thumbnail', 'PostsThumbnailController@destroy')->name('posts.thumbnail.destroy');
+
+            // Users
+            Route::resource('users', 'UsersController', ['only' => 'update']);
+        });
+
+        Route::post('/authenticate', 'Auth\AuthenticateController@authenticate')->name('authenticate');
+
         // Comments
-        Route::resource('comments', 'CommentsController', ['only' => 'destroy']);
-        Route::resource('posts.comments', 'PostCommentsController', ['only' => 'store']);
+        Route::resource('posts.comments', 'PostCommentsController', ['only' => 'index']);
+        Route::resource('users.comments', 'UserCommentsController', ['only' => 'index']);
+        Route::resource('comments', 'CommentsController', ['only' => ['index', 'show']]);
 
         // Posts
-        Route::resource('posts', 'PostsController', ['only' => ['update', 'store', 'destroy']]);
-        Route::delete('/posts/{post}/thumbnail', 'PostsThumbnailController@destroy')->name('posts.thumbnail.destroy');
+        Route::resource('posts', 'PostsController', ['only' => ['index', 'show']]);
+        Route::resource('users.posts', 'UserPostsController', ['only' => 'index']);
 
         // Users
-        Route::resource('users', 'UsersController', ['only' => 'update']);
+        Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
     });
-
-    Route::post('/authenticate', 'Auth\AuthenticateController@authenticate')->name('authenticate');
-
-    // Comments
-    Route::resource('posts.comments', 'PostCommentsController', ['only' => 'index']);
-    Route::resource('users.comments', 'UserCommentsController', ['only' => 'index']);
-    Route::resource('comments', 'CommentsController', ['only' => ['index', 'show']]);
-
-    // Posts
-    Route::resource('posts', 'PostsController', ['only' => ['index', 'show']]);
-    Route::resource('users.posts', 'UserPostsController', ['only' => 'index']);
-
-    // Users
-    Route::resource('users', 'UsersController', ['only' => ['index', 'show']]);
 });
