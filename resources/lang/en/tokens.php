@@ -1,5 +1,5 @@
 <?php
 
 return [
-  'created' => "La clé d'API a bien été générée"
+  'created' => 'The API key has been successfully generated'
 ];

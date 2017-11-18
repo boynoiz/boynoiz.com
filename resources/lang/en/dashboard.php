@@ -5,6 +5,6 @@ return [
     'this_week' => 'Latest topic in this week',
     'details' => 'Details',
     'posts' => 'Posts',
-    'comments' => 'Comment',
+    'comments' => 'Comments',
     'users' => 'Users',
 ];

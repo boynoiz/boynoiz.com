@@ -1,30 +1,30 @@
 <?php
 
 return [
-  'publish' => 'Publier',
-  'delete' => 'Supprimer',
-  'delete_thumbnail' => "Supprimer l'image à la une",
-  'edit' => 'Éditer',
-  'last_posts' => 'Les derniers articles',
-  'create' => 'Ajouter un article',
-  'created' => 'Article créé avec succès',
-  'updated' => 'Article mis à jour avec succès',
-  'deleted' => 'Article supprimé avec succès',
-  'empty' => "Il n'y a aucun article pour le moment.",
-  'new_posts' => 'nouvel article|nouveaux articles',
+  'publish' => 'Publish',
+  'delete' => 'Delete',
+  'delete_thumbnail' => 'Delete this image',
+  'edit' => 'Edit',
+  'last_posts' => 'Last post',
+  'create' => 'New post',
+  'created' => 'Post created successfully',
+  'updated' => 'Post updated successfully',
+  'deleted' => 'Post deleted successfully',
+  'empty' => 'There is no article for the moment.',
+  'new_posts' => 'new article|new articles',
   'count' => ':count article|:count articles',
-  'show' => "Voir l'article",
+  'show' => 'See post',
 
   'attributes' => [
-    'title' => 'Titre',
-    'content' => 'Contenu',
-    'author' => 'Auteur',
-    'thumbnail' => 'Image à la une',
-    'posted_at' => 'Posté le',
+    'title' => 'Title',
+    'content' => 'Content',
+    'author' => 'Author',
+    'thumbnail' => 'Post image',
+    'posted_at' => 'Post at',
   ],
 
   'placeholder' => [
-    'title' => 'Votre titre',
-    'content' => 'Votre contenu'
+    'title' => 'Your title',
+    'content' => 'Your content'
   ]
 ];

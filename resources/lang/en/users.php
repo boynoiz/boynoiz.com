@@ -1,30 +1,30 @@
 <?php
 
 return [
-  'profil' => 'Mon profil',
-  'nb_of_posts' => "Nombre d'articles",
-  'nb_of_comments' => "Nombre de commentaires",
-  'edit' => 'Éditer le profil',
-  'show' => 'Voir le profil',
-  'updated' => 'Le profil a bien été mis à jour',
-  'new_users' => 'nouvel utilisateur|nouveaux utilisateurs',
-  'count' => ':count utilisateur|:count utilisateurs',
-  'empty_api_token' => "Aucune clé d'API disponible.",
+  'profile' => 'My profile',
+  'nb_of_posts' => 'Number of post',
+  'nb_of_comments' => 'Number of comments',
+  'edit' => 'Edit profile',
+  'show' => 'View profile',
+  'updated' => 'Profile has been updated',
+  'new_users' => 'new user|new users',
+  'count' => ':count user|:count users',
+  'empty_api_token' => 'No API key available.',
 
   'attributes' => [
-    'name' => 'Nom',
+    'name' => 'Name',
     'email' => 'Email',
-    'password' => 'Mot de passe',
-    'password_confirmation' => 'Confirmation du mot de passe',
-    'roles' => 'Rôles',
-    'registered_at' => 'Enregistré le',
-    'api_token' => "Clé d'API"
+    'password' => 'Password',
+    'password_confirmation' => 'Password Confirmation',
+    'roles' => 'Roles',
+    'registered_at' => 'Registered on',
+    'api_token' => 'API Key'
   ],
 
   'placeholder' => [
-    'name' => 'Votre nom',
-    'email' => 'Votre email',
-    'password' => 'Votre nouveau mot de passe',
-    'password_confirmation' => 'Confirmation du nouveau mot de passe'
+    'name' => 'Your name',
+    'email' => 'Your email',
+    'password' => 'Your new password',
+    'password_confirmation' => 'Confirmation of the new password'
   ]
 ];

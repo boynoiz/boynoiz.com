@@ -3,26 +3,26 @@
 return [
 
   'actions' => [
-    'save' => 'Sauvegarder',
-    'update' => 'Mettre à jour',
-    'back' => 'Retour',
-    'generate' => 'Générer',
-    'delete' => 'Supprimer',
-    'add' => 'Ajouter',
+    'save' => 'Save',
+    'update' => 'Update',
+    'back' => 'Return',
+    'generate' => 'Generate',
+    'delete' => 'Remove',
+    'add' => 'Add',
   ],
 
   'comments' => [
-    'delete' => 'Êtes-vous sûr de vouloir supprimer ce commentaires ?'
+    'delete' => 'Are you sure you want to delete this comment ?'
   ],
 
   'posts' => [
-    'delete' => 'Êtes-vous sûr de vouloir supprimer cet article ?',
-    'delete_thumbnail' => "Êtes-vous sûr de vouloir supprimer l'image à la une ?"
+    'delete' => 'Are you sure to delete this article ?',
+    'delete_thumbnail' => 'Are you sure to delete this image ?'
   ],
 
   'tokens' => [
-    'regenerate' => 'Êtes-vous sûr de vouloir regénérer une clé ? Toutes ses API seront deconnectées.',
-    'delete' => 'Êtes-vous sûr de vouloir supprimer cette clé ? Toutes ses API seront deconnectées.',
+    'regenerate' => 'Are you sure to regenerate a key? All of its APIs will be disconnected.',
+    'delete' => 'Are you sure to delete this key? All of its APIs will be disconnected.',
   ]
 
 ];

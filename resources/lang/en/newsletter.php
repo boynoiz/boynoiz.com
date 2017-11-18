@@ -1,16 +1,16 @@
 <?php
 
 return [
-  'subscribre' => "S'inscrire",
-  'placeholder' => 'Votre email',
-  'created' => "Email ajouté à la newsletter avec succès",
-  'unsubscribed' => 'La demande de désabonnement a bien été prise en compte.',
+  'subscribe' => 'Subscribe',
+  'placeholder' => 'Your email',
+  'created' => 'Email added to the newsletter successfully',
+  'unsubscribed' => 'The request for unsubscription has been taken into account.',
 
   'email' => [
-    'subject' => 'Newsletter du mois',
-    'welcome' => 'Bienvenue sur la Newsletter du mois !',
-    'description' => 'Voici la liste des :count derniers articles publiés au cours du mois',
-    'thanks' => 'Merci de vous être abonné à notre newsletter',
-    'unsubscribe' => 'Se désabonner'
+    'subject' => 'Newsletter of the month',
+    'welcome' => 'Welcome to the newsletter of the month !',
+    'description' => 'Here is the list of: count last articles published during the month',
+    'thanks' => 'Thank you for subscribing to our newsletter',
+    'unsubscribe' => 'Unsubscribe'
   ]
 ];

@@ -15,9 +15,9 @@ return [
 
     'failed'   => 'These identifiers do not match our records',
     'throttle' => 'Too many login attempts Please try again in :seconds seconds.',
-    'login'    => 'Login',
+    'login'    => 'Log In',
     'logout'    => 'Logout',
-    'register' => 'Register',
+    'register' => 'Sign up',
     'remember_me' => 'Remember me',
     'forgotten_password' => 'Forgot your password ?',
     'reset_password' => 'Reset password',
