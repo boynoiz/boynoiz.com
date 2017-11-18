@@ -17,6 +17,10 @@ Route::domain(env('APP_DOMAIN'))->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
 });
 
+Route::domain('www.' . env('APP_DOMAIN'))->group(function () {
+    Route::get('/', 'HomeController@index');
+});
+
 Route::domain('blog.' . env('APP_DOMAIN'))->group(function () {
     Route::get('/', 'PostsController@index')->name('blog');
     Route::resource('media', 'MediaController', ['only' => 'show']);
