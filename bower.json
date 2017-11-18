@@ -1,0 +1,19 @@
+{
+  "name": "boynoiz.com",
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "node_modules/",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "Ionicons": "ionicons#^2.0.1",
+    "themify-icons-sass": "^0.0.3"
+  }
+}
