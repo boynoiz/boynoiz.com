@@ -1,27 +1,29 @@
+let tailwindcss = require('tailwindcss')
 module.exports = {
-  plugins: {
-    'stylelint': {
+  plugins: [
+    tailwindcss('./tailwind-config.js'),
+    require('stylelint')({
       configFile: '.stylelintrc',
-    },
-    'css-mqpacker': {
+    }),
+    require('css-mqpacker')({
       sort: true
-    },
-    'postcss-cssnext': {
+    }),
+    require('postcss-cssnext')({
       browsers: [
         'last 2 versions',
         '> 5% in BE'
       ]
-    },
-    'postcss-easy-import': {},
-    'postcss-reporter': {
+    }),
+    require('postcss-easy-import')(),
+    require('postcss-reporter')({
       clearReportedMessages: true
-    },
-    'postcss-nested': {},
-    'postcss-remove-root': {},
-    'postcss-css-variables': {},
-    'postcss-conditionals': {},
-    'postcss-custom-media': {},
-    'cssnano': {
+    }),
+    require('postcss-nested')(),
+    require('postcss-remove-root')(),
+    require('postcss-css-variables')(),
+    require('postcss-conditionals')(),
+    require('postcss-custom-media')(),
+    require('cssnano')({
       preset: ['advanced', {
         discardEmpty: true,
         discardDuplicates: true,
@@ -29,6 +31,6 @@ module.exports = {
         discardComments: {removeAll: true},
         filterPlugins: false
       }]
-    },
-  }
+    }),
+  ]
 }

@@ -10,8 +10,6 @@ if (!window._babelPolyfill) {
 
 try {
   window.$ = window.jQuery = require('jquery')
-  window.Popper = require('popper.js').default
-  require('bootstrap-loader');
 } catch (errors) {
   console.log(errors)
 }
@@ -21,7 +19,6 @@ try {
  * to our Laravel back-end. This library automatically handles sending the
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
-
 window.axios = require('axios')
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
 
@@ -47,7 +44,7 @@ let api_token = document.head.querySelector('meta[name="api-token"]')
 
 if (api_token) {
   window.axios.defaults.headers.common['Authorization'] = 'Bearer ' + api_token.content;
-  window.axios.defaults.baseURL = 'https://api.boynoiz.dev';
+  window.axios.defaults.baseURL = 'https://api.' + process.env.APP_DOMAIN;
 }
 
 /**
@@ -61,7 +58,7 @@ window.io = io
 import Echo from 'laravel-echo'
 window.Echo = new Echo({
   broadcaster: 'socket.io',
-  host: window.location.hostname + ':2053',
+  host: process.env.APP_DOMAIN + ':2053',
   auth:
     {
       headers:

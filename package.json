@@ -36,6 +36,7 @@
     "cssnano": "^4.0.0-rc.2",
     "cssnano-preset-advanced": "^4.0.0-rc.2",
     "dotenv": "^4.0.0",
+    "dotenv-webpack": "^1.5.4",
     "eslint": "^4.11.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-html": "^4.0.0",
@@ -99,6 +100,7 @@
     "webpack-dashboard": "^1.0.2"
   },
   "devDependencies": {
-    "babel-plugin-syntax-dynamic-import": "^6.18.0"
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
+    "tailwindcss": "^0.2.0"
   }
 }
