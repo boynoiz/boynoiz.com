@@ -1,6 +1,5 @@
-import axios from 'axios'
 import Vue from 'vue'
-import BootstrapVue from 'bootstrap-vue/dist/bootstrap-vue.esm'
+import BootstrapVue from 'bootstrap-vue'
 
 import CommentList from './components/comments/Comment-list.vue'
 import CommentForm from './components/comments/Comment-form.vue'

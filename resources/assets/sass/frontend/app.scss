@@ -1,0 +1,14 @@
+@tailwind preflight;
+@tailwind screens;
+@import "variables";
+@import "~bootstrap/scss/bootstrap";
+@import "~bootstrap-vue/dist/bootstrap-vue";
+@import "base/base";
+//@import "modules/form";
+//@import "modules/turbolinks";
+//@import "modules/panels";
+//@import "modules/buttons";
+//@import "shared/sidebar";
+//@import "layouts/posts";
+@import "browserupgrade";
+@tailwind utilities;

@@ -7,7 +7,9 @@
             "browsers": ["last 2 versions", "> 5% in BE"],
             "uglify": false
           },
-          "modules": false
+          "modules": false,
+          "useBuiltIns": true,
+          "debug": true
         }]
       ],
       "plugins": [
@@ -30,7 +32,9 @@
             "browsers": ["last 2 versions", "> 5% in BE"],
             "uglify": true
           },
-          "modules": false
+          "modules": false,
+          "useBuiltIns": true,
+          "debug": false
         }]
       ],
       "plugins": [

@@ -1,101 +1,20 @@
-const {mix} = require('laravel-mix')
-const webpack = require('webpack')
-const Dotenv = require('dotenv-webpack');
-const tailwindcss = require('tailwindcss');
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-mix.config.postCss = require('./postcss.config').plugins;
+const glob = require('glob-all')
+const path = require('path')
+const mix = require('laravel-mix')
+const Dotenv = require('dotenv-webpack')
+const purgeCss = require('purgecss-webpack-plugin')
 
+mix.config.postCss = require('./postcss.config').plugins
 
 // Start processes
 mix
-  .js('./resources/assets/js/app.js', 'public/assets/js')
-  .copy('node_modules/trumbowyg/dist/ui/icons.svg', 'public/assets/img/icons.svg')
-  .postCss('./resources/assets/sass/app.scss', 'public/assets/css');
-
-
-
-// Config
-mix.webpackConfig({
-  output: {
-    publicPath: '/',
-    chunkFilename: 'js/[name]-[chunkhash].js',
-  },
-  module: {
-    rules: [
-      {
-        test: /\.css$/,
-        use: ExtractTextPlugin.extract({
-          fallback: 'style-loader',
-          use: [
-            {
-              loader: 'css-loader',
-              options: {
-                modules: true,
-                importLoaders: 1,
-              },
-            },
-            {
-              loader: 'postcss-loader',
-              options: {
-                sourceMap: mix.inProduction() ? false : 'inline',
-                ident: 'postcss',
-                syntax: 'postcss-scss',
-                config: {
-                  path: './postcss.config.js'
-                }
-              },
-            },
-            {
-              loader: 'sass-loader',
-            },
-          ]
-        })
-      },
-      {
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: ExtractTextPlugin.extract({
-          use: ['css-loader', 'sass-loader']
-        })
-      },
-    ]
-  },
-  plugins: [
-    new Dotenv(),
-    new ExtractTextPlugin({
-      filename: '/assets/css/app2.css',
-      allChunks: true,
-    }),
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'assets/js/vendor',
-      minChunks: function (module) {
-        // any required modules inside node_modules are extracted to vendor
-        return (
-          module.resource &&
-          /\.js$/.test(module.resource) &&
-          module.resource.indexOf(
-            path.join(__dirname, '../node_modules')
-          ) === 0
-        )
-      }
-    }),
-    // extract webpack runtime and module manifest to its own file in order to
-    // prevent vendor hash from being updated whenever app bundle is updated
-    new webpack.optimize.CommonsChunkPlugin({
-      name: 'assets/js/manifest',
-      minChunks: Infinity
-    }),
-  ],
-  resolve: {
-    alias: {
-      '~': path.join(__dirname, './node_modules')
-    }
-  },
-  node: {
-    fs: "empty"
-  },
-  devtool: 'source-map'
-})
+  .js('./resources/assets/js/frontend/app.js', 'public/assets/js')
+  .js('./resources/assets/js/backend/backend.js', 'public/assets/js')
+  .sass('./resources/assets/sass/frontend/app.scss', 'public/assets/css')
+  .copy(['node_modules/font-awesome/fonts', 'node_modules/raleway-webfont/fonts', 'node_modules/themify-icons-sass/fonts'], 'public/assets/fonts')
+  .options({
+    processCssUrls: false,
+  })
   .autoload({
     _babelPolyfill: ['babel-polyfill'],
     lodash: ['_', 'window._'],
@@ -104,6 +23,18 @@ mix.webpackConfig({
     axios: ['axios', 'window.axios'],
     tether: ['tether', 'Tether'],
     'socket.io-client': ['io', 'window.io'],
+    'popper.js/dist/umd/popper.js': ['Popper', 'window.Popper', 'default'],
+    'exports-loader?Alert!bootstrap/js/dist/alert': ['Alert', 'window.Alert'],
+    'exports-loader?Button!bootstrap/js/dist/button': ['Button', 'window.Button'],
+    'exports-loader?Carousel!bootstrap/js/dist/carousel': ['Carousel', 'window.Carousel'],
+    'exports-loader?Collapse!bootstrap/js/dist/collapse': ['Collapse', 'window.Collapse'],
+    'exports-loader?Dropdown!bootstrap/js/dist/dropdown': ['Dropdown', 'window.Dropdown'],
+    'exports-loader?Modal!bootstrap/js/dist/modal': ['Modal', 'window.Modal'],
+    'exports-loader?Popover!bootstrap/js/dist/popover': ['Popover', 'window.Popover'],
+    'exports-loader?Scrollspy!bootstrap/js/dist/scrollspy': ['Scrollspy', 'window.Scrollspy'],
+    'exports-loader?Tab!bootstrap/js/dist/tab': ['Tab', 'window.Tab'],
+    'exports-loader?Tooltip!bootstrap/js/dist/tooltip': ['Tooltip', 'window.Tooltip'],
+    'exports-loader?Util!bootstrap/js/dist/util': ['Util', 'window.Util']
   })
   .extract([
     'babel-polyfill',
@@ -112,12 +43,51 @@ mix.webpackConfig({
     'tether',
     'popper.js',
     'vue',
+    'bootstrap',
+    'bootstrap-vue',
     'socket.io-client'
-  ])
-  .options({
-    processCssUrls: false,
-    includePaths: []
-  })
+  ]);
+
 if (mix.inProduction()) {
   mix.version()
 }
+
+// Config
+mix.webpackConfig({
+  output: {
+    publicPath: '/public/',
+    chunkFilename: 'js/[name].js',
+  },
+  plugins: [
+    new Dotenv(),
+    new purgeCss({
+      paths: glob.sync([
+        path.join(__dirname, 'app/**/*.php'),
+        path.join(__dirname, 'resources/views/**/*.blade.php'),
+        path.join(__dirname, 'resources/assets/js/**/*.vue'),
+        path.join(__dirname, 'node_modules/simplemde/**/*.js'),
+        path.join(__dirname, 'node_modules/turbolinks/**/*.js'),
+      ]),
+      whitelistPatterns: [/carbon/, /language/, /hljs/],
+      extractors: [
+        {
+          extractor: class {
+            static extract (content) {
+              return content.match(/[A-z0-9-:\/]+/g)
+            }
+          },
+          extensions: ['html', 'js', 'php', 'vue'],
+        }
+      ]
+    }),
+  ],
+
+  resolve: {
+    extensions: ['.js', '.vue', '.json'],
+    alias: {
+      'vue$': 'vue/dist/vue.js',
+      '~': path.join(__dirname, './node_modules')
+    },
+  },
+  devtool: 'source-map'
+})

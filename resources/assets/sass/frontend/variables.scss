@@ -1,0 +1,17 @@
+@import "~bootstrap/scss/functions";
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
+
+$font-family-sans-serif: 'Raleway', Tahoma, "Helvetica Neue", Helvetica, Arial, sans-serif;
+
+// This path is relative to this file!
+//$raleway-font-path: '~fonts-raleway/fonts' !default;
+//$fa-font-path: '~font-awesome/fonts' !default;
+//$themify-font-path : '~themify-icons-sass/fonts' !default;
+
+$raleway-font-path: '../fonts' !default;
+$fa-font-path: '../fonts' !default;
+$themify-font-path : '../fonts' !default;
+
+@import "~fonts-raleway/scss/raleway";
+@import "~font-awesome/scss/font-awesome";
+@import "~themify-icons-sass/sass/themify-icons";

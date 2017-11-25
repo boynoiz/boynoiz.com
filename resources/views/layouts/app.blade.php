@@ -2,6 +2,7 @@
 <html lang="{{ app()->getLocale() }}">
 <head>
     <meta charset="utf-8">
+    <meta name="pinterest" content="nopin">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="author" content="{{ config('settings.author') }}">
     <meta name="description" content="{{ config('settings.description') }}">
@@ -18,8 +19,8 @@
     <!-- Styles -->
     <link rel="stylesheet" href="{{ mix('assets/css/app.css') }}" media="all">
 </head>
-<body class="bg-light">
-    <div id="app">
+<body>
+    <main id="app">
         @include('shared/navbar')
 
         <div class="container {{ (Request::is('/') || Request::is('posts/*') || Request::is('login') || Request::is('register')) ? '' : 'bg-white' }}">
@@ -33,7 +34,7 @@
         </div>
 
         {{--@include('shared/footer')--}}
-    </div>
+    </main>
 
     <!-- Scripts -->
     @routes
